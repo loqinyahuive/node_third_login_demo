@@ -1,0 +1,50 @@
+Nodejs 手动搭建 Express 项目
+1. npm install -g express express-generator suptervisor
+  // express-generator  Express 应用生成器
+  // suptervisor  监视你对代码的改动，并自动重启 Node.js ,必须全局安装
+2. express -e blog // -e 使用ejs 模板引擎生成项目
+3. npm init
+  npm install express ejs --save
+4. app.js
+var express = require('express');
+var path = require('path');
+var ejs = require('ejs');
+var app = express();
+
+app.set('views', path.join(__dirname,'views'));  // 设置视图文件目录
+
+app.set('view engine' , 'ejs'); //设置模板引擎为ejs
+
+app.use( express.static(path.join(__dirname, 'public')) );  // 配置静态资源目录
+
+
+// 路由规则
+app.get('/', function(request, response){
+  response.send('Hello Node.js')
+});
+
+app.listen(3000);    // 监听 3000 端口
+
+console.log('server started at port 3000');
+5. 修改模板后缀
+app.set('view engine' , 'html'); //修改模板文件的后缀名为html
+app.engine('.html' , ejs.__express);   //"__express"，ejs模块的一个公共属性，表示要渲染的文件扩展名。
+
+参考地址： http://www.ujiuyeweb.com/archives/335
+热启动： https://www.cnblogs.com/juexin/p/6831392.html
+https://github.com/scotch-io/easy-node-authentication/blob/master/README.md
+https://scotch.io/tutorials/easy-node-authentication-setup-and-local
+http://www.passportjs.org/packages/
+# facebook
+https://github.com/passport/express-4.x-facebook-example
+# google
+https://github.com/jaredhanson/passport-google-oauth2
+
+https://developers.facebook.com/
+https://developers.facebook.com/docs/facebook-login/web
+express使用https
+https://blog.csdn.net/f826760951/article/details/67639309
+创建facebook应用
+http://bbs.mob.com/thread-43-1-5.html
+Twitter开发者平台上注册自己的应用
+https://www.cnblogs.com/qianzf/p/7120548.html
